@@ -2,11 +2,32 @@
 
 namespace App;
 
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function roles(){
+        return $this->belongsToMany('Role', 'users_roles');
+    }
+
+    // Find out of the user has the admin role.
+    public function isAdmin(){
+        $roles = $this->roles->toArray();
+
+        return !empty($roles);
+    }
+
+    public function hasRole(){
+        return in_array($check, array_fetch($this->roles->toArray().'name'));
+    }
+
     use Notifiable;
 
     /**

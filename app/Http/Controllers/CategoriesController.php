@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Category;
+use DB;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
-class ArticlesController extends Controller
+class CategoriesController extends Controller
 {
 	public function index(){
-		$articles = Article::all();
-		return view('articles.index', compact('articles'));
+		// function that shows the category overview page.
+		$categories = Category::orderBy('title', 'asc')->get();
+		return view('games.index', compact('categories'));
 	}
 
-	public function show(Article $article){
-		return view('articles.show', compact('article'));
+	public function show(Category $category){
+		// Function that shows the detail page of a certain category.
+		return view('games.show', compact('category'));
+	}
+
+	public function create(){
+		// Function shows the create page to create a new category.
+		return view('games.create');
 	}
 
 	public function store(Request $request){
@@ -41,10 +47,17 @@ class ArticlesController extends Controller
 
 	public function update(Category $category, Request $request){
 		// Function that updates the element you wish to edit with its new conent.
-		$categoryToUpdate = $request->id;
-		$categoryToUpdate->title = $request->title;
-		$categoryToUpdate->body = $request->body;
-		$categoryToUpdate->save();
+
+		echo $category->id;
+		echo $request->title;
+		echo $request->body;
+
+		// $categoryToUpdate = $category->id;
+		$category->title = $request->title;
+		$category->body = $request->body;
+		$category->save();
 		return back();
 	}
 }
+
+
