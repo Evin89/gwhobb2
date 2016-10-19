@@ -9,26 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    public function articles(){
-        return $this->hasMany(Article::class);
-    }
-
-    public function roles(){
-        return $this->belongsToMany('Role', 'users_roles');
-    }
-
-    // Find out of the user has the admin role.
-    public function isAdmin(){
-        $roles = $this->roles->toArray();
-
-        return !empty($roles);
-    }
-
-    public function hasRole(){
-        return in_array($check, array_fetch($this->roles->toArray().'name'));
-    }
-
-    use Notifiable;
+	use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+    'name', 'email', 'password',
     ];
 
     /**
@@ -45,6 +26,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+    'password', 'remember_token',
     ];
+
+    public function articles(){
+    	return $this->hasMany(Article::class);
+    }
+
+    public function roles(){
+    	return $this->hasMany(Role::class);
+    }
 }

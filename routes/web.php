@@ -1,22 +1,9 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
-
+// Route for home
 Route::get('/', 'PagesController@index');
 
 // Authorisation
 Auth::routes();
-
-// Route::get('/home', 'HomeController@index');
 
 // Routes for games
 Route::get('games',  'CategoriesController@index');
@@ -33,7 +20,6 @@ Route::get('news/{article}',  'ArticlesController@show');
 Route::get('news/create',  'ArticlesController@create');
 Route::post('news/create',  'ArticlesController@store');
 
-
 // Routes for events
 Route::get('events',  'EventsController@index');
 Route::get('events/{event}',  'EventsController@show');
@@ -46,14 +32,3 @@ Route::get('profile', 'ProfileController@index');
 
 //Routes for users
 Route::get('users', 'UserController@index');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
