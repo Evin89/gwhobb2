@@ -25,6 +25,13 @@ class CategoriesController extends Controller
 	}
 
 	public function store(Request $request){
+
+		// Valiidation of requesr.
+		$this->validate($request , [
+			'title' => 'required|unique:categories|max:300',
+			'body' => 'required',
+		]);
+
 		// Function that stores the new  category
 		$category = new Category;
 		$category->title = $request->title;
@@ -47,6 +54,12 @@ class CategoriesController extends Controller
 
 	public function update(Category $category, Request $request){
 		// Function that updates the element you wish to edit with its new conent.
+
+		$this->validate($request, [
+			'id' => 'required',
+			'title' => 'required|unique:categories|max:300',
+			'body' => 'required',
+			]);
 
 		echo $category->id;
 		echo $request->title;
