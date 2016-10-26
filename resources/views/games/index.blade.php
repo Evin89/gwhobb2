@@ -35,7 +35,7 @@
 				<div class="panel-heading">Spelcategorie toevoegen</div>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/games/create') }}">
-						{{ csrf_field() }}
+						{{!! csrf_field() !!}
 
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 							<label for="`title" class="col-md-4 control-label">Title</label>

@@ -13,6 +13,7 @@
 				<p>{{ $article->created_at}} door {{ $article->user->name }}</p>
 				<p>{{ str_limit($article->body, 300) }}</p>
 				<p><b>Category:</b> {{ $article->category->title }}</p>
+				<p><img src="/{{ $article->image }}" alt=""></p>
 				<a href="/news/{{  $article->id }}"><button class="read-more-button">Lees meer</button></a>
 			</div>
 			@endforeach

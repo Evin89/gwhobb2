@@ -32,3 +32,12 @@ Route::get('profile', 'ProfileController@index');
 
 //Routes for users
 Route::get('users', 'UserController@index');
+
+// Route for images
+Route::get('img/{image}', function($image = null)
+{
+    $path = storage_path().'/app/img/' . $image;
+    if (file_exists($path)) {
+        return Response::download($path);
+    }
+});
