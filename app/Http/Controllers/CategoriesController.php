@@ -56,7 +56,6 @@ class CategoriesController extends Controller
 		// Function that updates the element you wish to edit with its new conent.
 
 		$this->validate($request, [
-			'id' => 'required',
 			'title' => 'required|unique:categories|max:300',
 			'body' => 'required',
 			]);

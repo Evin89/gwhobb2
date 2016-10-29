@@ -14,7 +14,7 @@ use App\Http\Requests;
 class ArticlesController extends Controller
 {
 	public function index(){
-		$articles = Article::all();
+		$articles = Article::orderBy('created_at', 'desc')->get();
 		$categories = Category::all();
 		return view('articles.index', compact('articles', 'categories'));
 	}
@@ -77,16 +77,17 @@ class ArticlesController extends Controller
 }
 
 
-public function delete(Article $category){
-		// Delete function for Categories/Games
-	$articleToDelete = Article::find($category->id);
+public function delete(Article $article){
+	// Delete function for Categories/Games
+	$articleToDelete = Article::find($article->id);
 	$articleToDelete->delete();
 	return back();
 }
 
-public function edit(Article $category){
+public function edit(Article $article, Category $category){
 		// Function to show the edit page of the element you wish to edit
-	return view('games.edit', compact('category'));
+	$categories = Category::all();
+	return view('articles.edit', compact('article', 'categories'));
 }
 
 public function update(Article $category, Request $request){

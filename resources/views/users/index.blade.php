@@ -5,39 +5,75 @@
 <div class="row">
 	<div class="col-md-12">
 		<h2>Users</h2>
+		<hr>
 	</div>
 </div>
 <div class="row">
-	<div class="col-m">
-		<ul class="list-group">
-			<table>
-				<tr>
-					<th class="col-md-1">#</th>
-					<th class="col-md-1">Gebruikersnaam</th>
-					<th class="col-md-1">E-mail</th>
-					<th class="col-md-2">Geregistreerd</th>
-					<th class="col-md-1">`Rechten</th>
-					@if(Auth::check())
-					<th class="col-md-1">Delete</th>
-					@endif
-				</tr>
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<tr>
+				<th class="">#</th>
+				<th class="">Gebruikersnaam</th>
+				<th class="">E-mail</th>
+				<th class="">Geregistreerd</th>
+				<th class="">Geactiveerd</th>
+				<th>Editor</th>
+				<th>Organiser</th>
+				<th class="">Admin</th>
+				@if(Auth::check())
+				<th class=""></th>
+				@endif
+			</tr>
 
-				@foreach($users as  $user)
+			@foreach($users as  $user)
 				<tr class="user">
-					<th class="col-md-1" >{{ $user->id }}</th>
-					<td class="col-md-1">{{ $user->name  }}</td>
-					<td class="col-md-1">{{ $user->email }}</td>
-					<td class="col-md-2">{{ $user->created_at  }}</td>
-					<td class="col-md-1">T.b.d.</td>
-					@if(Auth::check())
-					<td class="col-md-1"><a href="/admin/users/delete">X</a></td>
-					@endif
+				<th class="" >{{ $user->id }}</th>
+				<td class="">{{ $user->name  }}</td>
+				<td class="">{{ $user->email }}</td>
+				<td class="">{{ $user->created_at  }}</td>
+				<td class="">{{ $user->active }}</td>
+				<form action="/users/{{ $user->id }}" method="POST" role="form">
+					<input type="hidden" name="id" value="{{  $user->id }}">
+					{{  method_field("PATCH") }}
+					{{ csrf_field() }}
+					<td>
+						<input type="checkbox" class="usersChechbox"  name="editor"
+						@if($user->roles != null)
+						@foreach($user->roles as $role)
+						@if( $role->name == 'editor')
+						checked
+						@endif
+						@endforeach>
+						@endif
+					</td>
+					<td>
+						<input type="checkbox" class="usersChechbox" name="organiser"
+						@if($user->roles != null)
+						@foreach($user->roles as $role)
+						@if( $role->name == 'organiser')
+						checked
+						@endif
+						@endforeach>
+						@endif
+					</td>
+					<td>
+						<input type="checkbox" class="usersChechbox"  name="admin"
+						@if($user->roles != null)
+						@foreach($user->roles as $role)
+						@if( $role->name == 'admin')
+						checked
+						@endif
+						@endforeach>
+						@endif
+					</td>
+
+					<td class=""><input type="submit" value="update" class="btn btn-warning"></form> <a href="/users/{{ $user->id }}/delete" class="btn btn-danger">Verwijderen</a></td>
 				</tr>
 				@endforeach
 
 			</table>
-		</ul>
-	</div>
-</div>
 
-@stop
+		</div>
+	</div>
+
+	@stop

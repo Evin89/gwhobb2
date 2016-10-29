@@ -21,7 +21,7 @@ class CreateArticleTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('title');
             $table->text('body');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

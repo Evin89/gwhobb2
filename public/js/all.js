@@ -18,3 +18,7 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: 'body'
 });
+$('document').ready({
+	console.log('ready');
+});
+//# sourceMappingURL=all.js.map

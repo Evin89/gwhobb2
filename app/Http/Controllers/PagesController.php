@@ -16,8 +16,9 @@ class PagesController extends Controller
 	public function index()
 	{
 		$users = User::all();
-		$articles = Article::all();
-		$events = Event::all();
+		$articles = Article::orderBy('created_at', 'desc')->limit(3)->get();
+		$events = Event::orderBy('created_at', 'desc')->limit(3)->get();
+
 		return view('index', compact('articles', 'events', 'users'));
 
 	}
